@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  apiserver:
+    container_name: 'eventdriven-api'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: 'eventdriven-api:latest'
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/app
+    ports:
+      - "${API_PORT}:3001"
+    env_file: ./.env
+    restart: always
+    environment:
+      TZ: 'Asia/Seoul'
