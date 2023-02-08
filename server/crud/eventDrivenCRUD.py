@@ -15,4 +15,4 @@ def save_file(content):
     
     except Exception as e:
         print(f"UnExpected error: {e}")
-        raise HTTPException(status_code = 500, detail = 'Content Save Error') from e
+        raise HTTPException(status_code = 501, detail = 'Content Save Error') from e
