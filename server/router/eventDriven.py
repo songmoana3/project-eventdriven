@@ -13,8 +13,8 @@ def get_log(
 ):
     try:
         for content in file:
-            eventDrivenCRUD.save_file(content)
-                
+            eventDrivenCRUD.save_file(contents)
+            
     except HTTPException as e:
         raise e
     
