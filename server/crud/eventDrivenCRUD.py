@@ -1,4 +1,5 @@
 import os
+import logging
 from fastapi import HTTPException
 
 def save_file(content):
@@ -14,5 +15,5 @@ def save_file(content):
             file.write(content)
     
     except Exception as e:
-        print(f"UnExpected error: {e}")
+        logging.error(f"UnExpected error: {e}")
         raise HTTPException(status_code = 501, detail = 'Content Save Error') from e

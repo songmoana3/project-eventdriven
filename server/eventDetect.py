@@ -1,4 +1,5 @@
 import time 
+import logging
 import requests
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -6,21 +7,20 @@ from watchdog.events import FileSystemEventHandler
 class FileHandler(FileSystemEventHandler):
     def on_created(self, event):
         try:
-            print("데 박 뚜 먼 가 이 벤 트 가 생 겼 따 !") 
             with open(event.src_path, 'rb') as files:
                 while True:
                     response = requests.post('http://192.168.0.38:5557/event-driven', files = {'file':files})
                     if response.status_code != 200:
-                        if str(response.status_code).startswith('5'): # 500대 에러 뜨면 요청 멈추기! 
-                            raise Exception('데 박 500 에 러 고 쳐 조')
+                        if str(response.status_code).startswith('5'):  
+                            raise Exception('error raised')
                         time.sleep(2)                           
                         continue
                     else:
-                        print('- save complete - ')
+                        logging.info('- save complete - ')
                         break
                     
         except Exception as e:
-            print(f'UnExpected Error:{e}')    
+            logging.error(f'UnExpected Error:{e}')    
 
 def detect_events():
     observer = Observer()
